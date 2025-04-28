@@ -1,0 +1,13 @@
+class Solution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        if root is None:
+            return []
+        if not (root.left or root.right):
+        # if not any([root.left, root.right]):  # scalable for non-binary trees; but a bit slower in runtime
+            return [str(root.val)]
+        paths = []
+        for c in [root.left, root.right]:
+            subpaths = self.binaryTreePaths(c)
+            paths.extend(["->".join([str(root.val), p]) for p in subpaths])
+        return paths
+        
